@@ -44,15 +44,24 @@ export default function FullScreen360Viewer() {
   }, []);
 
   return (
-    <div
-      // just a background layer
-      className="absolute inset-0 bg-black flex items-center justify-center select-none cursor-ew-resize z-0"
-    >
-      <img
-        src={imageList[index]}
-        alt="360 View"
-        className="w-full h-full object-cover"
-      />
+    <div className="absolute inset-0">
+      <div className="absolute inset-0 overflow-hidden">
+        <img
+          src={imageList[index]}
+          alt="Blurred Background"
+          className="w-full h-full object-cover filter blur-md scale-105"
+        />
+      </div>
+
+      <div className="absolute inset-0 flex items-center justify-center z-10 select-none cursor-ew-resize">
+        <img
+          src={imageList[index]}
+          alt="360 View"
+          className="w-full h-full object-contain"
+          //w-full
+          //cover
+        />
+      </div>
     </div>
   );
 }
