@@ -1,7 +1,6 @@
-import { useState, useRef, useEffect } from "react";
+import { useEffect, useState, useRef } from "react";
 
 const totalFrames = 150;
-
 const imageList = Array.from(
   { length: totalFrames },
   (_, i) => `/Camera_01/Cliffton_O1.${String(i).padStart(4, "0")}.png`
@@ -33,20 +32,26 @@ export default function FullScreen360Viewer() {
   };
 
   useEffect(() => {
+    // attach globally
+    window.addEventListener("mousedown", handleMouseDown);
+    window.addEventListener("mousemove", handleMouseMove);
     window.addEventListener("mouseup", handleMouseUp);
-    return () => window.removeEventListener("mouseup", handleMouseUp);
+    return () => {
+      window.removeEventListener("mousedown", handleMouseDown);
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("mouseup", handleMouseUp);
+    };
   }, []);
 
   return (
     <div
-      onMouseDown={handleMouseDown}
-      onMouseMove={handleMouseMove}
-      className="fixed inset-0 bg-black flex items-center justify-center select-none cursor-ew-resize z-50"
+      // just a background layer
+      className="absolute inset-0 bg-black flex items-center justify-center select-none cursor-ew-resize z-0"
     >
       <img
         src={imageList[index]}
         alt="360 View"
-        className="w-full h-full object-contain"
+        className="w-full h-full object-cover"
       />
     </div>
   );

@@ -8,6 +8,7 @@ import Virtualtour from "./component/Virtualtour";
 import VillaDetailsPanel from "./component/VillaDetailsPanel";
 import Gallary from "./component/Gallery";
 import Archismlogo from "./component/Archismlogo";
+import FullScreen360Viewer from "./component/FullScreen360Viewer";
 
 function App() {
   const [activeTab, setActiveTab] = useState("Overview");
@@ -32,12 +33,15 @@ function App() {
   return (
     <div>
       <div className="relative h-screen w-screen overflow-hidden">
-        {/* Background Image */}
-        <img
-          src={backgroundImage}
-          alt="Background"
-          className="absolute inset-0 w-full h-full object-cover z-0"
-        />
+        {activeTab === "Overview" ? (
+          <FullScreen360Viewer />
+        ) : (
+          <img
+            src={backgroundImage}
+            alt="Background"
+            className="absolute inset-0 w-full h-full object-cover z-0"
+          />
+        )}
 
         <div className="relative z-10 flex h-full overflow-hidden">
           {/* Sidebar */}
